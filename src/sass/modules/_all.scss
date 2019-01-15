@@ -1,0 +1,79 @@
+$url1 : "../../images/mountauns.jpeg";
+$url2 : "../../images/travel.jpeg";
+@mixin mQ($width) {
+  @media only screen and (min-width: $width) {
+    @content
+  }
+}
+@mixin border{
+  &::after{
+    content: '';
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: $red-underline;
+    transition: all 0.5s;
+  }
+  &.scrolled::after{
+    left: 0;
+    width: 100%;
+  }
+
+}
+@mixin parallax($url,$posX, $posY){
+  background: url($url) no-repeat $posX $posY fixed;
+  background-size: auto;
+  position: relative;
+  &::after{
+    content: '';
+    display: block;
+    position: absolute;
+    opacity: .2;
+    height: 100%;
+    width: 100%;
+    background: white;
+    transition: 1s ease;
+  }
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../../fonts/Lato-Bold.eot');
+  src: url('../../fonts/Lato-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../../fonts/Lato-Bold.woff2') format('woff2'),
+  url('../../fonts/Lato-Bold.woff') format('woff'),
+  url('../../fonts/Lato-Bold.ttf') format('truetype'),
+  url('../../fonts/Lato-Bold.svg#Lato-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../../fonts/Lato-Regular.eot');
+  src: url('../../fonts/Lato-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../../fonts/Lato-Regular.woff2') format('woff2'),
+  url('../../fonts/Lato-Regular.woff') format('woff'),
+  url('../../fonts/Lato-Regular.ttf') format('truetype'),
+  url('../../fonts/Lato-Regular.svg#Lato-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@keyframes arrows {
+  25%{
+    top: -200%;
+  }
+  50%{
+    top: -100%;
+  }
+  75%{
+    top: 0;
+  }
+  100%{
+    top: 100%;
+     }
+}

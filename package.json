@@ -1,0 +1,36 @@
+{
+  "name": "Gulp-Starter",
+  "version": "0.0.1",
+  "description": "",
+  "main": "gulpfile.js",
+  "author": "Shramee Srivastav",
+  "license": "MIT",
+  "homepage": "http://shramee.me",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shramee/gulp-sass-babel.git"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.26.3",
+    "del": "^3.0.0",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-changed": "^3.1.0",
+    "gulp-clean-css": "^3.3.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-gh-pages": "^0.5.4",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-resolve-url": "0.0.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-size": "^3.0.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify-es": "^1.0.4"
+  },
+  "dependencies": {}
+}
