@@ -8,7 +8,7 @@
     <script src="https://developer.edamam.com/attribution/badge.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 </head>
 <body>
 <div class="jumbotron jumbotron-fluid text-white text-center mb-5">
@@ -18,13 +18,35 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <div class="wrapper m-auto position-relative">
+            <div class="wrapper m-auto position-relative fridge">
                 <div class="shelf shelf-1">
-                    <button  class="btn my-3 btn-secondary btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select</button>
-                    <button  class="btn my-3 btn-secondary btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select</button>
+                    <div class="btn-group">
+                        <button  class="btn my-3 btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No restriction</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="javascript:void(0)">No restriction</a>
+                            <a class="dropdown-item" href="javascript:void(0)">Vegetarian</a>
+                            <a class="dropdown-item" href="javascript:void(0)">Vegan</a>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button  class="btn my-3 btn-secondary btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No filter</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="javascript:void(0)">No filter</a>
+                            <a class="dropdown-item" href="javascript:void(0)">Balanced</a>
+                            <a class="dropdown-item" href="javascript:void(0)">Low-fat</a>
+                            <a class="dropdown-item" href="javascript:void(0)">High-protein</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="shelf shelf-2"></div>
-                <div class="shelf shelf-3"></div>
+                <div class="shelf shelf-2">
+                    <div class="wrap"><input spellcheck="false" type="text" id="ingredient-1" placeholder="ingredient 1" class="form-control"><i class="far fa-times-circle"></i></div>
+                    <div class="wrap"><input spellcheck="false" type="text" id="ingredient-2" placeholder="ingredient 2" class="form-control"><i class="far fa-times-circle"></i></div>
+                    <div class="wrap"><input spellcheck="false" type="text" id="ingredient-3" placeholder="ingredient 3" class="form-control"><i class="far fa-times-circle"></i></div>
+                </div>
+                <div class="shelf shelf-3">
+                    <button class="btn btn-secondary my-3">I'm feelin' lucky..</button>
+                    <button class="btn btn-secondary my-3">Go for it!</button>
+                </div>
                 <img src="images/fridge.jpg" class="img-fluid" alt="fridge">
                 <div class="door door-left">
                     <div class="handle handle-left"></div>
@@ -33,7 +55,6 @@
                     <div class="handle handle-right"></div>
                 </div>
             </div>
-
         </div>
         <div class="col-4 offset-2">
             <div class="card">
@@ -49,6 +70,8 @@
     </div>
     <div class="mt-3 text-left float-left text-muted">&#169;&nbsp;Copyright kubasulek</div>
     <div class="mt-1 text-right float-right" id="edamam-badge"></div>
+
+</div>
 
 
 <script src="js/vendor/jquery-3.3.1.min.js"></script>
