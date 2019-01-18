@@ -1,8 +1,17 @@
-div{
-  border: 1px solid black;
-  text-align: center;
+.container{
+  min-width: 1200px;
 }
-
-body{
-  background: #0b2e13;
+.row{
+  height: 100%;
+}
+[class*=col]{
+  //height: 100%;
+  background: #7abaff;
+  .wrapper{
+    width: 85%;
+  }
+}
+.jumbotron{
+  max-height: 250px;
+  min-width: 1200px;
 }
