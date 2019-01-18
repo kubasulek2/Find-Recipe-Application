@@ -4,4 +4,19 @@ $breakPoints: ( 576px, 768px, 992px, 1200px);
     @content
   }
 }
+body{
+  background: lighten($salmon, 12%);
+}
+.container {
+  min-width: 1200px;
+}
+.jumbotron{
+  max-height: 250px;
+  min-width: 1200px;
+  background: $salmon;
+}
+#edamam-badge{
+  background: lighten($salmon, 12%);
+}
+
 

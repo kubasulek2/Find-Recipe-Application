@@ -11,15 +11,29 @@
     <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">-->
 </head>
 <body>
-<div class="jumbotron jumbotron-fluid bg-info text-white text-center">
+<div class="jumbotron jumbotron-fluid text-white text-center mb-5">
     <h1 class="display-2">Find Recipe</h1>
     <p class="lead">Click the fridge to open it!</p>
 </div>
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <div class="wrapper m-auto"></div>
-            <img src="images/fridge.jpg" class="img-fluid" alt="">
+            <div class="wrapper m-auto position-relative">
+                <div class="shelf shelf-1">
+                    <button  class="btn my-3 btn-secondary btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select</button>
+                    <button  class="btn my-3 btn-secondary btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select</button>
+                </div>
+                <div class="shelf shelf-2"></div>
+                <div class="shelf shelf-3"></div>
+                <img src="images/fridge.jpg" class="img-fluid" alt="fridge">
+                <div class="door door-left">
+                    <div class="handle handle-left"></div>
+                </div>
+                <div class="door door-right">
+                    <div class="handle handle-right"></div>
+                </div>
+            </div>
+
         </div>
         <div class="col-4 offset-2">
             <div class="card">
@@ -33,7 +47,8 @@
             </div>
         </div>
     </div>
-<div id="edamam-badge" data-color="white"></div>
+    <div class="mt-3 text-left float-left text-muted">&#169;&nbsp;Copyright kubasulek</div>
+    <div class="mt-1 text-right float-right" id="edamam-badge"></div>
 
 
 <script src="js/vendor/jquery-3.3.1.min.js"></script>
