@@ -55,7 +55,7 @@ $(() => {
     const appId = 'fd3ea657';
     const appKey ='a61ca3c11d3b2ec930779e11cfe06c85';
 
-    fetch(`https://api.edamam.com/search?q=chicken+tomato&app_id=${appId}&app_key=${appKey}&from=0&to=10`,{
+    fetch(`https://api.edamam.com/search?q=chicken+tomato&app_id=${appId}&app_key=${appKey}&from=0&to=6`,{
       mode: 'cors',
       redirect: 'follow',
       headers: {
@@ -63,31 +63,73 @@ $(() => {
       }
     }).then(resp => resp.json())
       .then(data =>{
-        console.log(data);
-        createRecipeCard(data)
+        createRecipeCard(data);
       })
       .catch(err => console.log(err))
 
+
+
   };
   const createRecipeCard = data => {
+    let index = castRecipes(data.hits.length);
+    drawRecipeData(data, index);
+  };
 
-    let count = drawRecipes(data.to);
-    let recipe = data.hits[count].recipe;
+  const castRecipes = (index) => {
+    return index <= 5 ? 0 : Math.floor(Math.random()*(index - 4))
+  };
+
+  const changeRecipe = (data, index) => {
+    drawRecipeData(data, index);
+
+  };
+
+  const drawRecipeData = (data, index) => {
+    clearRecipeData();
+    //console.log(data);
+    let recipe = data.hits[index].recipe;
+    let queryHits = data.hits.length <= 5 ? data.hits.length : 5;
     let image = new Image();
+    let calories = Math.round(recipe.calories / recipe.yield);
+
     image.src = recipe.image;
-
-    for(let i = 0; i < recipe.ingredients.length ; i++){
-      $('.card-body ul').append(`<li>- ${recipe.ingredients[i].text}</li>`)
-    }
-
-    $('.card-title').text(recipe.label);
     image.onload = $('.image')
       .append(`<img src='${image.src}' class="card-img-top mx-auto" alt="recipe image">`);
 
+    $('.card-title').text(recipe.label);
+    $('.group-info .info-1').text(`Servings: ${recipe.yield}`);
+    $('.group-info .info-2').text(`Cal/Serving: ${calories}`);
+
+    for(let i = 0; i < recipe.ingredients.length ; i++){
+      $('.card-body .ingredients')
+        .append(`<li>- ${recipe.ingredients[i].text}</li>`)
+    }
+
+    $('.btn-prev').one('click', () => {
+      if (index > 0){
+        index--;
+        changeRecipe(data, index)
+      }else{
+        index = queryHits -1;
+        changeRecipe(data, index)
+      }
+    });
+    $('.btn-next').one('click', () => {
+
+      if (index < queryHits - 1){
+        index++;
+        changeRecipe(data, index)
+      }else{
+        index = 0;
+        changeRecipe(data, index)
+      }
+    });
   };
-  const drawRecipes = (count) => {
-    return count < 5 ? 0 : Math.floor(Math.random()*(count - 5))
+  const clearRecipeData = ()=>{
+    $('ul.ingredients').empty();
+    $('.image').empty();
   };
+
   basicFetch();
   openFridge();
   handleSelection();

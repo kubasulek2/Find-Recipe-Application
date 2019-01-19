@@ -24,6 +24,9 @@
       color: white;
       font-weight: bold;
     }
+    ul{
+     padding-inline-start: 1.5rem;
+    }
 
     .card-text {
       text-align: left;
@@ -33,6 +36,22 @@
         text-wrap: normal;
       }
     ;
+    }
+    .group-info{
+      display: flex;
+      justify-content: space-between;
+      border-top : 1px solid rgba(0,0,0, 0.125);
+      padding: 1rem;
+      &:last-child{
+        padding-bottom: 0;
+      }
+
+      button{
+        background: $salmon;
+        color: white;
+        padding: .5rem 1.3rem;
+        margin: 0 1rem;
+      }
     }
   }
 }
