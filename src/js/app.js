@@ -2,13 +2,12 @@ $(() => {
   let obj = {
     restriction: '',
     filter: '',
-    ingredient1: 'aa',
-    ingredient2: 'bb',
-    ingredient3: 'cc'
+    ingredient1: '',
+    ingredient2: '',
+    ingredient3: ''
   };
   let request = new Map(Object.entries(obj));
   const createRequest = () => {
-
   };
   const resetRequest = ()=>{
     request.forEach((value, key, map) => map.set(key, ''));
@@ -86,7 +85,7 @@ $(() => {
 
   const drawRecipeData = (data, index) => {
     clearRecipeData();
-    //console.log(data);
+    console.log(data);
     let recipe = data.hits[index].recipe;
     let queryHits = data.hits.length <= 5 ? data.hits.length : 5;
     let image = new Image();
@@ -99,6 +98,9 @@ $(() => {
     $('.card-title').text(recipe.label);
     $('.group-info .info-1').text(`Servings: ${recipe.yield}`);
     $('.group-info .info-2').text(`Cal/Serving: ${calories}`);
+    $('.index').text(`${index}/5`);
+    console.log(recipe.url);
+    $('a.btn').attr('href', recipe.url);
 
     for(let i = 0; i < recipe.ingredients.length ; i++){
       $('.card-body .ingredients')
