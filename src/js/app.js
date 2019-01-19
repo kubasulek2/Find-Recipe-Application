@@ -1,20 +1,31 @@
 $(() => {
-  let obj = {
-    restriction: '',
-    filter: '',
-    ingredient1: '',
-    ingredient2: '',
-    ingredient3: ''
+  let request = {
+    restriction: undefined,
+    filter: undefined,
+    ingredient1: undefined,
+    ingredient2: undefined,
+    ingredient3: undefined
   };
-  let request = new Map(Object.entries(obj));
   const createRequest = () => {
-  };
-  const resetRequest = ()=>{
-    request.forEach((value, key, map) => map.set(key, ''));
 
+    request.restriction = $('.restriction').text() === 'No restriction' ? undefined : $('.restriction').text();
+    request.filter = $('.filter').text() === 'No filter' ? undefined : $('.filter').text();
+    request.ingredient1 = $('#ingredient-1').val() === ''? undefined : $('#ingredient-1').val();
+    request.ingredient2 = $('#ingredient-2').val() === ''? undefined : $('#ingredient-2').val();
+    request.ingredient3 = $('#ingredient-3').val() === ''? undefined : $('#ingredient-3').val();
+
+    requestFetch(request)
+  };
+
+  const resetRequest = ()=>{
+
+    Object.keys(request).forEach((key)=> request[key] = undefined);
     $('.fridge').find('.dropdown-menu .show').removeClass('show');
     $('.fridge').find('input').val('');
+    $('.restriction').text('No restriction');
+    $('.filter').text('No filter')
   };
+
 
   const handleSelection = ()=> {
     
@@ -25,10 +36,9 @@ $(() => {
     $('.fa-times-circle').on('click', function () {
       $(this).prev().val('');
 
-      request.set('ingredient1', this.previousElementSibling.id.includes('1') ? '' : request.get('ingredient1') );
-      request.set('ingredient2', this.previousElementSibling.id.includes('2') ? '' : request.get('ingredient2') );
-      request.set('ingredient3', this.previousElementSibling.id.includes('3') ? '' : request.get('ingredient3') );
-      console.log(request);
+      request.ingredient1 = this.previousElementSibling.id.includes('1') ? undefined : request.ingredient1;
+      request.ingredient2 = this.previousElementSibling.id.includes('2') ? undefined : request.ingredient2;
+      request.ingredient3 = this.previousElementSibling.id.includes('3') ? undefined : request.ingredient3;
     })
   };
 
@@ -50,11 +60,20 @@ $(() => {
       door.toggleClass('open');
     })
   };
-  const basicFetch = ()=>{
+  const requestFetch = request =>{
     const appId = 'fd3ea657';
     const appKey ='a61ca3c11d3b2ec930779e11cfe06c85';
+    let query = createQuery();
 
-    fetch(`https://api.edamam.com/search?q=chicken+tomato&app_id=${appId}&app_key=${appKey}&from=0&to=6`,{
+    let filter = request.filter === undefined ? '' : `&diet=${request.filter}`;
+    let restriction = request.restriction === undefined ? '' : `&health=${request.restriction}`;
+    let url = `https://api.edamam.com/search?q=${query}&app_id=${appId}&app_key=${appKey}${filter}${restriction}&from=0&to=100`;
+    console.log(filter);
+    console.log(restriction);
+    console.log(query);
+    console.log(url);
+
+    fetch(url,{
       mode: 'cors',
       redirect: 'follow',
       headers: {
@@ -67,8 +86,20 @@ $(() => {
       .catch(err => console.log(err))
 
 
-
   };
+
+  const createQuery = () => {
+    let array = [];
+    let result ='';
+    if( request.ingredient1 !== undefined) {array.push(request.ingredient1)}
+    if( request.ingredient2 !== undefined) {array.push(request.ingredient2)}
+    if( request.ingredient3 !== undefined) {array.push(request.ingredient3)}
+    if (array.length === 3){ result = `${array[0]}+${array[1]}+${array[2]}`}
+    if (array.length === 2){ result = `${array[0]}+${array[1]}`}
+    if (array.length === 1){ result = `${array[0]}`}
+    return result
+  };
+
   const createRecipeCard = data => {
     let index = castRecipes(data.hits.length);
     drawRecipeData(data, index);
@@ -85,7 +116,7 @@ $(() => {
 
   const drawRecipeData = (data, index) => {
     clearRecipeData();
-    console.log(data);
+    //console.log(data);
     let recipe = data.hits[index].recipe;
     let queryHits = data.hits.length <= 5 ? data.hits.length : 5;
     let image = new Image();
@@ -99,7 +130,6 @@ $(() => {
     $('.group-info .info-1').text(`Servings: ${recipe.yield}`);
     $('.group-info .info-2').text(`Cal/Serving: ${calories}`);
     $('.index').text(`${index}/5`);
-    console.log(recipe.url);
     $('a.btn').attr('href', recipe.url);
 
     for(let i = 0; i < recipe.ingredients.length ; i++){
@@ -116,7 +146,7 @@ $(() => {
         changeRecipe(data, index)
       }
     });
-    $('.btn-next').one('click', () => {
+    $('.btn-next').once('click', () => {
 
       if (index < queryHits - 1){
         index++;
@@ -132,7 +162,7 @@ $(() => {
     $('.image').empty();
   };
 
-  basicFetch();
   openFridge();
   handleSelection();
+  $('.search').on('click',createRequest)
 });
