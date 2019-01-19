@@ -65,8 +65,8 @@ $(() => {
     const appKey ='a61ca3c11d3b2ec930779e11cfe06c85';
     let query = createQuery();
 
-    let filter = request.filter === undefined ? '' : `&diet=${request.filter}`;
-    let restriction = request.restriction === undefined ? '' : `&health=${request.restriction}`;
+    let filter = request.filter === undefined ? '' : `&diet=${request.filter.toLowerCase()}`;
+    let restriction = request.restriction === undefined ? '' : `&health=${request.restriction.toLowerCase()}`;
     let url = `https://api.edamam.com/search?q=${query}&app_id=${appId}&app_key=${appKey}${filter}${restriction}&from=0&to=100`;
     console.log(filter);
     console.log(restriction);
@@ -81,6 +81,7 @@ $(() => {
       }
     }).then(resp => resp.json())
       .then(data =>{
+        console.log(data);
         createRecipeCard(data);
       })
       .catch(err => console.log(err))
@@ -146,7 +147,7 @@ $(() => {
         changeRecipe(data, index)
       }
     });
-    $('.btn-next').once('click', () => {
+    $('.btn-next').one('click', () => {
 
       if (index < queryHits - 1){
         index++;
