@@ -68,10 +68,6 @@ $(() => {
     let filter = request.filter === undefined ? '' : `&diet=${request.filter.toLowerCase()}`;
     let restriction = request.restriction === undefined ? '' : `&health=${request.restriction.toLowerCase()}`;
     let url = `https://api.edamam.com/search?q=${query}&app_id=${appId}&app_key=${appKey}${filter}${restriction}&from=0&to=100`;
-    console.log(filter);
-    console.log(restriction);
-    console.log(query);
-    console.log(url);
 
     fetch(url,{
       mode: 'cors',
@@ -81,7 +77,7 @@ $(() => {
       }
     }).then(resp => resp.json())
       .then(data =>{
-        console.log(data);
+        //console.log(data);
         createRecipeCard(data);
       })
       .catch(err => console.log(err))
@@ -102,26 +98,29 @@ $(() => {
   };
 
   const createRecipeCard = data => {
+    let length = data.hits.length > 4 ? 4 : data.hits.length;
     let index = castRecipes(data.hits.length);
-    drawRecipeData(data, index);
+    let maxIndex = index + length;
+    drawRecipeData(data, index, maxIndex);
   };
 
   const castRecipes = (index) => {
     return index <= 5 ? 0 : Math.floor(Math.random()*(index - 4))
   };
 
-  const changeRecipe = (data, index) => {
-    drawRecipeData(data, index);
+  const changeRecipe = (data, index,maxIndex) => {
+    drawRecipeData(data, index,maxIndex);
 
   };
 
-  const drawRecipeData = (data, index) => {
+  const drawRecipeData = (data, index, maxIndex) => {
     clearRecipeData();
     //console.log(data);
     let recipe = data.hits[index].recipe;
-    let queryHits = data.hits.length <= 5 ? data.hits.length : 5;
     let image = new Image();
     let calories = Math.round(recipe.calories / recipe.yield);
+    let recipeNumber = -(maxIndex-(index+5));
+
 
     image.src = recipe.image;
     image.onload = $('.image')
@@ -130,7 +129,7 @@ $(() => {
     $('.card-title').text(recipe.label);
     $('.group-info .info-1').text(`Servings: ${recipe.yield}`);
     $('.group-info .info-2').text(`Cal/Serving: ${calories}`);
-    $('.index').text(`${index}/5`);
+    $('.index').text(`${recipeNumber}/5`);
     $('a.btn').attr('href', recipe.url);
 
     for(let i = 0; i < recipe.ingredients.length ; i++){
@@ -139,22 +138,24 @@ $(() => {
     }
 
     $('.btn-prev').one('click', () => {
-      if (index > 0){
+
+      if (index > maxIndex - 4){
         index--;
-        changeRecipe(data, index)
+        changeRecipe(data, index, maxIndex)
       }else{
-        index = queryHits -1;
-        changeRecipe(data, index)
+        index = maxIndex;
+        changeRecipe(data, index, maxIndex)
       }
     });
     $('.btn-next').one('click', () => {
-
-      if (index < queryHits - 1){
+      if (index < maxIndex){
         index++;
-        changeRecipe(data, index)
+        recipeNumber++;
+        changeRecipe(data, index,maxIndex)
       }else{
-        index = 0;
-        changeRecipe(data, index)
+        recipeNumber = 1;
+        index = maxIndex - 4;
+        changeRecipe(data, index,maxIndex)
       }
     });
   };
