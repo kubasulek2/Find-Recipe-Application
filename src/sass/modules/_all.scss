@@ -1,9 +1,23 @@
 $breakPoints: ( 576px, 768px, 992px, 1200px);
+
 @mixin mQ($width) {
   @media (min-width: $width) {
     @content
   }
 }
+
+@font-face {
+  font-family: 'Handlee';
+  src: url('../../fonts/Handlee-Regular.eot');
+  src: url('../../fonts/Handlee-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../../fonts/Handlee-Regular.woff2') format('woff2'),
+  url('../../fonts/Handlee-Regular.woff') format('woff'),
+  url('../../fonts/Handlee-Regular.ttf') format('truetype'),
+  url('../../fonts/Handlee-Regular.svg#Handlee-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 html {
 

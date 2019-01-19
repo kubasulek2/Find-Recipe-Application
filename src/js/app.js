@@ -55,7 +55,7 @@ $(() => {
     const appId = 'fd3ea657';
     const appKey ='a61ca3c11d3b2ec930779e11cfe06c85';
 
-    fetch(`https://api.edamam.com/search?q=chicken+tomato&app_id=${appId}&app_key=${appKey}&from=0&to=100 `,{
+    fetch(`https://api.edamam.com/search?q=chicken+tomato&app_id=${appId}&app_key=${appKey}&from=0&to=10`,{
       mode: 'cors',
       redirect: 'follow',
       headers: {
@@ -63,22 +63,30 @@ $(() => {
       }
     }).then(resp => resp.json())
       .then(data =>{
+        console.log(data);
         createRecipeCard(data)
       })
       .catch(err => console.log(err))
 
   };
   const createRecipeCard = data => {
-    let recipe = data.hits[6].recipe;
+
+    let count = drawRecipes(data.to);
+    let recipe = data.hits[count].recipe;
+    let image = new Image();
+    image.src = recipe.image;
 
     for(let i = 0; i < recipe.ingredients.length ; i++){
-
       $('.card-body ul').append(`<li>- ${recipe.ingredients[i].text}</li>`)
     }
 
-    $('.card-img-top').attr('src',recipe.image);
     $('.card-title').text(recipe.label);
-    $('.card-body').html()
+    image.onload = $('.image')
+      .append(`<img src='${image.src}' class="card-img-top mx-auto" alt="recipe image">`);
+
+  };
+  const drawRecipes = (count) => {
+    return count < 5 ? 0 : Math.floor(Math.random()*(count - 5))
   };
   basicFetch();
   openFridge();
