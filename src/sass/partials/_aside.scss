@@ -1,0 +1,37 @@
+.card{
+
+  background: lighten($fridge, 20%);
+  text-align: center;
+  .card-header {
+    background: $fridge;
+    color: white;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .card-img-top{
+    display: inline-block;
+    width: 50%;
+
+  }
+  .card-body {
+    padding: 1rem 0;
+    .card-title {
+      background: $fridge;
+      font-size: 1.5rem;
+      width: 100%;
+      color: white;
+      font-weight: bold;
+    }
+
+    .card-text {
+      text-align: left;
+
+      li {
+        list-style-type: none;
+        text-wrap: normal;
+      }
+    ;
+    }
+  }
+}

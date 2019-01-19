@@ -55,7 +55,7 @@ $(() => {
     const appId = 'fd3ea657';
     const appKey ='a61ca3c11d3b2ec930779e11cfe06c85';
 
-    fetch(`https://api.edamam.com/search?q=chicken&app_id=${appId}&app_key=${appKey}`,{
+    fetch(`https://api.edamam.com/search?q=chicken+tomato&app_id=${appId}&app_key=${appKey}&from=0&to=100 `,{
       mode: 'cors',
       redirect: 'follow',
       headers: {
@@ -63,10 +63,24 @@ $(() => {
       }
     }).then(resp => resp.json())
       .then(data =>{
-        console.log(data);
+        createRecipeCard(data)
       })
+      .catch(err => console.log(err))
+
   };
-  //basicFetch();
+  const createRecipeCard = data => {
+    let recipe = data.hits[6].recipe;
+
+    for(let i = 0; i < recipe.ingredients.length ; i++){
+
+      $('.card-body ul').append(`<li>- ${recipe.ingredients[i].text}</li>`)
+    }
+
+    $('.card-img-top').attr('src',recipe.image);
+    $('.card-title').text(recipe.label);
+    $('.card-body').html()
+  };
+  basicFetch();
   openFridge();
   handleSelection();
 });

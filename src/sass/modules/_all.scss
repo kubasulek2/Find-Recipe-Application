@@ -4,19 +4,20 @@ $breakPoints: ( 576px, 768px, 992px, 1200px);
     @content
   }
 }
-body{
-  background: lighten($salmon, 12%);
-}
-.container {
-  min-width: 1200px;
-}
-.jumbotron{
-  max-height: 250px;
-  min-width: 1200px;
-  background: $salmon;
-}
-#edamam-badge{
-  background: lighten($salmon, 12%);
-}
 
+html {
 
+  font-size: 50%;
+  @include mQ(nth($breakPoints, 2)) {
+    font-size: 60%;
+  }
+  @include mQ(nth($breakPoints, 3)) {
+    font-size: 70%;
+  }
+  @include mQ(nth($breakPoints, 4)) {
+    font-size: 80%;
+  }
+  @include mQ(1600px){
+    font-size: 90%;
+  }
+}

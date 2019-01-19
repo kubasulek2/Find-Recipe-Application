@@ -1,112 +1,18 @@
-.row {
-
-  [class*=col] {
-    .wrapper {
-      width: 85%;
-      height: 100%;
-
-      .shelf{
-        position: absolute;
-        width: 94%;
-        right: 3%;
-        opacity: .6;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-
-        .btn-group{
-          text-align: center;
-          margin: 0 1rem;
-          width: 33%;
-          .dropdown-menu {
-            width: 100%;
-            .dropdown-item:active{
-              background: $salmon;
-            }
-          }
-        }
-
-        &.shelf-1{
-          top: 15.5%;
-          height: 20.5%;
-        }
-        &.shelf-2{
-          top: 39%;
-          height: 18%;
-          flex-direction: column;
-          align-items: center;
-          div.wrap{
-            width: 80%;
-            margin: .2rem 0;
-            position: relative;
-            .fa-times-circle{
-              position: absolute;
-              top: 25%;
-              right: 2%;
-              cursor: pointer;
-              font-size: 1.2rem;
-              color: #6c757d;
-            }
-            }
-        }
-        &.shelf-3{
-          top: 60.5%;
-          height: 20.5%;
-          .btn{
-            width: 33%;
-            margin: 0 1rem;
-          }
-        }
-      }
-      .door{
-        display: none;
-        width: 54%;
-        height: 95%;
-        background: lighten($fridge, 5%);
-        z-index: 2;
-        position: absolute;
-        top: -10px;
-        border: 1px solid lighten($fridge, 60%);
-        transition: 1s ease-out;
-        cursor: pointer;
-        &.door-left{
-          left: -3%;
-          border-radius: 1rem 0 0 1rem;
-          &.open{
-            left: -44%;
-          }
-        }
-        &.door-right{
-          right: -3%;
-          border-radius: 0 1rem 1rem 0;
-          &.open{
-            right: -44%;
-          }
-        }
-        .handle{
-          position: absolute;
-          top: 40%;
-          width: 3%;
-          height: 8%;
-          border: 1px solid #95999c;
-          border-radius: .2rem;
-          background: #7c858d;
-          transition: .3s;
-          &.handle-left{
-            right: 7%;
-            &.open{
-              transform: translateX(-50%) rotate(10deg);
-            }
-          }
-          &.handle-right{
-            left: 3%;
-            &.open{
-              transform: translateX(50%) rotate(-10deg);
-            }
-          }
-        }
-      }
-    }
-  }
+body{
+  background: lighten($salmon, 12%);
 }
+.container {
+}
+.jumbotron{
+  max-height: 250px;
+  background: $salmon;
+}
+#edamam-badge{
+  background: lighten($salmon, 12%);
+}
+
+
+
+
+
 
