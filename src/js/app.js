@@ -26,13 +26,22 @@ $(() => {
     $('.filter').text('No filter')
   };
 
+  const drawRequest = () => {
+
+    resetRequest();
+    let ingredients = ['potato', 'salad', 'steak', 'tuna', 'salmon', 'cod', 'shrimps', 'rocket', 'spinach', 'onion', 'mushroom', 'leek', 'pumpkin', 'peas', 'bean', 'beans', 'cucumber', 'zucchini', 'garlic', 'broccoli', 'cauliflower', 'capers', 'carrot', 'beetroot', 'cabbage', 'asparagus', 'avocado', 'eggplant', 'rice', 'oats', 'buckwheat', 'black beans', 'chickpeas', 'millet', 'lentil', 'chicken', 'beef', 'turkey', 'duck', 'breast', 'pork', 'ham', 'mutton', 'chops', 'milk', 'cream', 'cheddar', 'yogurt', 'cottage', 'butter', 'mango', 'strawberry', 'orange', 'lemon', 'lime', 'coconut', 'banana', 'peach', 'olive', 'almonds', 'sesame', 'walnuts'];
+    let drawnIngredient = ingredients[Math.floor(Math.random() * ingredients.length)];
+
+    request.ingredient1 = drawnIngredient;
+    requestFetch(request);
+  };
 
   const handleSelection = ()=> {
-    
+
     $('a.dropdown-item').on('click', function () {
       $(this).parent().prev().text($(this).text())
     });
-    
+
     $('.fa-times-circle').on('click', function () {
       $(this).prev().val('');
 
@@ -61,6 +70,7 @@ $(() => {
     })
   };
   const requestFetch = request =>{
+
     const appId = 'fd3ea657';
     const appKey ='a61ca3c11d3b2ec930779e11cfe06c85';
     let query = createQuery();
@@ -166,5 +176,6 @@ $(() => {
 
   openFridge();
   handleSelection();
-  $('.search').on('click',createRequest)
+  $('.search').on('click',createRequest);
+  $('.lucky').on('click',drawRequest);
 });
