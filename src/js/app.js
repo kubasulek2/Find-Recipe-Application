@@ -134,7 +134,7 @@ $(() => {
     let recipe = data.hits[index].recipe;
     let image = new Image();
     let calories = Math.round(recipe.calories / recipe.yield);
-    let recipeNumber = -(maxIndex-(index+5));
+    let recipeNumber = maxIndex < 5 ? 1:-(maxIndex-(index+5));
     console.log(`recipe Number: ${recipeNumber}`);
 
     image.src = recipe.image;
