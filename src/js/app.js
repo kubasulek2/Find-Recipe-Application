@@ -6,7 +6,7 @@ $(() => {
     ingredient2: undefined,
     ingredient3: undefined
   };
-  const createRequest = () => {
+  const createRequest = async () => {
 
     request.restriction = $('.restriction').text() === 'No restriction' ? undefined : $('.restriction').text();
     request.filter = $('.filter').text() === 'No filter' ? undefined : $('.filter').text();
@@ -14,7 +14,8 @@ $(() => {
     request.ingredient2 = $('#ingredient-2').val() === ''? undefined : $('#ingredient-2').val();
     request.ingredient3 = $('#ingredient-3').val() === ''? undefined : $('#ingredient-3').val();
 
-    requestFetch(request)
+    await requestFetch(request);
+    openFridge();
   };
 
   const resetRequest = ()=>{
@@ -27,7 +28,7 @@ $(() => {
   };
 
   const drawRequest = () => {
-
+    openFridge();
     resetRequest();
     let ingredients = ['potato', 'salad', 'steak', 'tuna', 'salmon', 'cod', 'shrimps', 'rocket', 'spinach', 'onion', 'mushroom', 'leek', 'pumpkin', 'peas', 'bean', 'beans', 'cucumber', 'zucchini', 'garlic', 'broccoli', 'cauliflower', 'capers', 'carrot', 'beetroot', 'cabbage', 'asparagus', 'avocado', 'eggplant', 'rice', 'oats', 'buckwheat', 'black beans', 'chickpeas', 'millet', 'lentil', 'chicken', 'beef', 'turkey', 'duck', 'breast', 'pork', 'ham', 'mutton', 'chops', 'milk', 'cream', 'cheddar', 'yogurt', 'cottage', 'butter', 'mango', 'strawberry', 'orange', 'lemon', 'lime', 'coconut', 'banana', 'peach', 'olive', 'almonds', 'sesame', 'walnuts'];
     let drawnIngredient = ingredients[Math.floor(Math.random() * ingredients.length)];
@@ -52,23 +53,26 @@ $(() => {
   };
 
 
-  const openFridge = ()=>{
+
+
+  const openFridge = async ()=>{
     const door = $('.door');
     const handle = $('.handle');
 
-    door.on('click', async function () {
-      resetRequest();
-      handle.addClass('open');
+    resetRequest();
+    handle.addClass('open');
 
-      let handleBack = new Promise(resolve =>setTimeout(()=>resolve( handle.removeClass('open') ),300) );
-      let animationEnd = new Promise(resolve =>setTimeout(()=>resolve(),600) );
+    let handleBack = new Promise(resolve =>setTimeout(()=>resolve( handle.removeClass('open') ),300) );
+    let animationEnd = new Promise(resolve =>setTimeout(()=>resolve(),600) );
 
-      await handleBack;
-      await animationEnd;
+    await handleBack;
+    await animationEnd;
 
-      door.toggleClass('open');
-    })
+    door.toggleClass('open');
+
   };
+
+
   const requestFetch = request =>{
 
     const appId = 'fd3ea657';
@@ -87,7 +91,7 @@ $(() => {
       }
     }).then(resp => resp.json())
       .then(data =>{
-        //console.log(data);
+        console.log(data);
         createRecipeCard(data);
       })
       .catch(err => console.log(err))
@@ -111,6 +115,7 @@ $(() => {
     let length = data.hits.length > 4 ? 4 : data.hits.length;
     let index = castRecipes(data.hits.length);
     let maxIndex = index + length;
+    console.log(`length: ${length}, index: ${index}, maxIndex: ${maxIndex}`);
     drawRecipeData(data, index, maxIndex);
   };
 
@@ -130,7 +135,7 @@ $(() => {
     let image = new Image();
     let calories = Math.round(recipe.calories / recipe.yield);
     let recipeNumber = -(maxIndex-(index+5));
-
+    console.log(`recipe Number: ${recipeNumber}`);
 
     image.src = recipe.image;
     image.onload = $('.image')
@@ -174,8 +179,8 @@ $(() => {
     $('.image').empty();
   };
 
-  openFridge();
   handleSelection();
   $('.search').on('click',createRequest);
   $('.lucky').on('click',drawRequest);
+  $('.door').on('click', openFridge);
 });
