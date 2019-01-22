@@ -6,7 +6,7 @@ $(() => {
     ingredient2: undefined,
     ingredient3: undefined
   };
-  const createRequest = async () => {
+  const createRequest = () => {
 
     request.restriction = $('.restriction').text() === 'No restriction' ? undefined : $('.restriction').text();
     request.filter = $('.filter').text() === 'No filter' ? undefined : $('.filter').text();
@@ -14,7 +14,7 @@ $(() => {
     request.ingredient2 = $('#ingredient-2').val() === ''? undefined : $('#ingredient-2').val();
     request.ingredient3 = $('#ingredient-3').val() === ''? undefined : $('#ingredient-3').val();
 
-    await requestFetch(request);
+    requestFetch(request);
     openFridge();
   };
 
@@ -84,6 +84,7 @@ $(() => {
     let url = `https://api.edamam.com/search?q=${query}&app_id=${appId}&app_key=${appKey}${filter}${restriction}&from=0&to=100`;
 
     fetch(url,{
+      cache: "no-store",
       mode: 'cors',
       redirect: 'follow',
       headers: {
@@ -112,6 +113,7 @@ $(() => {
   };
 
   const createRecipeCard = data => {
+    animateCard();
     let length = data.hits.length > 5 ? 5 : data.hits.length;
     let index = 0;
     let maxIndex = index + length - 1;
@@ -121,6 +123,9 @@ $(() => {
     } else{
       drawRecipeData(data, index, maxIndex,recipeIndex);
     }
+  };
+  const animateCard = () => {
+    $('.card').addClass('animate');
   };
 
   const castRecipes = (length) => {
@@ -133,8 +138,11 @@ $(() => {
   };
 
   const drawRecipeData = (data, index, maxIndex, recipeIndex) => {
+    $('.btn-prev').off();
+    $('.btn-next').off();
+
     clearRecipeData();
-    console.log(`recipeIndex: ${recipeIndex}, index: ${index}, maxIndex: ${maxIndex}`);
+    console.log(`hits: ${data.hits.length}, index: ${index}, maxIndex: ${maxIndex}`);
     let recipe = data.hits[recipeIndex + index].recipe;
     let image = new Image();
     let calories = Math.round(recipe.calories / recipe.yield);
@@ -153,8 +161,10 @@ $(() => {
       $('.card-body .ingredients')
         .append(`<li>- ${recipe.ingredients[i].text}</li>`)
     }
+
     if(data.hits.length > 1) {
-      $('.btn-prev').one('click', () => {
+      console.log('aaa');
+      $('.btn-prev').on('click', () => {
 
         if (index > maxIndex - 4) {
           index--;
@@ -164,7 +174,7 @@ $(() => {
           changeRecipe(data, index, maxIndex,recipeIndex)
         }
       });
-      $('.btn-next').one('click', () => {
+      $('.btn-next').on('click', () => {
         if (index < maxIndex) {
           index++;
           recipeNumber++;
@@ -179,7 +189,6 @@ $(() => {
   };
   const clearRecipeData = ()=>{
     $('ul.ingredients').empty();
-    //$('.image').empty();
   };
 
   handleSelection();

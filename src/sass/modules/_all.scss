@@ -1,11 +1,17 @@
 $breakPoints: ( 576px, 768px, 992px, 1200px);
-
 @mixin mQ($width) {
   @media (min-width: $width) {
     @content
   }
 }
-
+@keyframes fade {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
 @font-face {
   font-family: 'Handlee';
   src: url('../../fonts/Handlee-Regular.eot');
