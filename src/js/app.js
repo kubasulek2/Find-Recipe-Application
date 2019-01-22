@@ -113,7 +113,7 @@ $(() => {
   };
 
   const createRecipeCard = data => {
-    animateCard();
+
     let length = data.hits.length > 5 ? 5 : data.hits.length;
     let index = 0;
     let maxIndex = index + length - 1;
@@ -125,7 +125,8 @@ $(() => {
     }
   };
   const animateCard = () => {
-    $('.card').addClass('animate');
+    $('.card').removeClass('animate');
+    setTimeout(function() {$('.card').addClass('animate')},10);
   };
 
   const castRecipes = (length) => {
@@ -140,8 +141,8 @@ $(() => {
   const drawRecipeData = (data, index, maxIndex, recipeIndex) => {
     $('.btn-prev').off();
     $('.btn-next').off();
-
     clearRecipeData();
+    animateCard();
     console.log(`hits: ${data.hits.length}, index: ${index}, maxIndex: ${maxIndex}`);
     let recipe = data.hits[recipeIndex + index].recipe;
     let image = new Image();

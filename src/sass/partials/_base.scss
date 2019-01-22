@@ -1,17 +1,50 @@
 body{
   background: lighten($salmon, 12%);
 }
-.container {
+.container-fluid {
 }
 .jumbotron{
-  max-height: 250px;
+  max-height: 14rem;
   background: $salmon;
+  @include mQ(nth($breakPoints, 1)){
+    padding: 2rem 1rem;
+  }
+  @include mQ(nth($breakPoints, 2)){
+    padding: 2rem 1rem;
+  }
+  @include mQ(nth($breakPoints, 3)){
+    padding: 2rem 1rem;
+  }
+  @include mQ(nth($breakPoints, 4)){
+    padding: 2rem 1rem;
+  }
+  p{
+    font-size: 1.6rem;
+  }
 }
-#edamam-badge{
-  background: lighten($salmon, 12%);
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  #edamam-badge {
+    background: lighten($salmon, 12%);
+  }
+  .copy {
+    font-size: 1.8rem;
+    @include mQ(nth($breakPoints, 1)){
+      font-size: 1.7rem;
+    }
+    @include mQ(nth($breakPoints, 2)){
+      font-size: 1.5rem;
+    }
+    @include mQ(nth($breakPoints, 3)){
+      font-size: 1.4rem;
+    }
+    @include mQ(nth($breakPoints, 4)){
+      font-size: 1.3rem;
+    }
+  }
 }
-
-
 
 
 

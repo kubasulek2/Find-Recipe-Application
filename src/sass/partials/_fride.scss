@@ -1,6 +1,5 @@
 .wrapper {
   width: 85%;
-  //height: 100%;
 
   .shelf{
     position: absolute;
@@ -16,7 +15,10 @@
     .btn-group{
       text-align: center;
       margin: 0 1rem;
-      width: 33%;
+      width: 36%;
+      @include mQ(nth($breakPoints,3)){
+        width: 33%;
+      }
 
       .dropdown-menu {
         width: 100%;
