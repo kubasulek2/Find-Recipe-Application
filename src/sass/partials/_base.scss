@@ -8,6 +8,7 @@ body{
   background: $salmon;
   @include mQ(nth($breakPoints, 1)){
     padding: 2rem 1rem;
+
   }
   @include mQ(nth($breakPoints, 2)){
     padding: 2rem 1rem;
@@ -18,6 +19,14 @@ body{
   @include mQ(nth($breakPoints, 4)){
     padding: 2rem 1rem;
   }
+  .display-2{
+    font-size: 3rem;
+
+    @include mQ(nth($breakPoints, 1)){
+      font-size: 5.5rem;
+    }
+  }
+
   p{
     font-size: 1.6rem;
   }
