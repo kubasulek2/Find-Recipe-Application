@@ -3,6 +3,7 @@
   background: lighten($fridge, 20%);
   text-align: center;
   opacity: 0;
+  display: none;
 
   &.animate{
     animation: fade 1.8s forwards;

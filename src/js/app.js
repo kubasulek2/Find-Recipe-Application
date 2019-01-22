@@ -139,15 +139,26 @@ $(() => {
   };
 
   const drawRecipeData = (data, index, maxIndex, recipeIndex) => {
-    $('.btn-prev').off();
-    $('.btn-next').off();
-    clearRecipeData();
-    animateCard();
-    console.log(`hits: ${data.hits.length}, index: ${index}, maxIndex: ${maxIndex}`);
+
     let recipe = data.hits[recipeIndex + index].recipe;
     let image = new Image();
     let calories = Math.round(recipe.calories / recipe.yield);
     let recipeNumber = index + 1;
+
+    const card = $('.card');
+
+    $('.btn-prev').off();
+    $('.btn-next').off();
+    clearRecipeData();
+
+    let display = new Promise(resolve => {
+
+      card.css('display', 'block');
+      resolve()
+
+    });
+    display.then( animateCard() );
+
 
     image.src = recipe.image;
     image.onload = $('.card-image').css('background-image', `url(${image.src})`);
@@ -156,7 +167,7 @@ $(() => {
     $('.group-info .info-1').text(`Servings: ${recipe.yield}`);
     $('.group-info .info-2').text(`Cal/Serving: ${calories}`);
     $('.index').text(`${recipeNumber}/${data.hits.length > 5 ? 5 :data.hits.length}`);
-    $('a.btn').attr('href', recipe.url);
+    $('.card a.btn').attr('href', recipe.url);
 
     for(let i = 0; i < recipe.ingredients.length ; i++){
       $('.card-body .ingredients')
