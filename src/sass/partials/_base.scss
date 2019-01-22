@@ -39,19 +39,6 @@ body{
     background: lighten($salmon, 12%);
   }
   .copy {
-    font-size: 1.8rem;
-    @include mQ(nth($breakPoints, 1)){
-      font-size: 1.7rem;
-    }
-    @include mQ(nth($breakPoints, 2)){
-      font-size: 1.5rem;
-    }
-    @include mQ(nth($breakPoints, 3)){
-      font-size: 1.4rem;
-    }
-    @include mQ(nth($breakPoints, 4)){
-      font-size: 1.3rem;
-    }
   }
 }
 

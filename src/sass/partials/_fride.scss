@@ -1,5 +1,8 @@
 .wrapper {
-  width: 85%;
+  width: 95%;
+  @include mQ(nth($breakPoints,1)){
+    width: 85%;
+  }
 
   .shelf{
     position: absolute;

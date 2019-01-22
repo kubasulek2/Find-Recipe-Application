@@ -24,4 +24,17 @@ $breakPoints: ( 576px, 768px, 992px, 1200px);
   font-style: normal;
 }
 
-
+html{
+  @include mQ(nth($breakPoints, 1)){
+    font-size: 85%;
+  }
+  @include mQ(nth($breakPoints, 2)){
+    font-size: 90%;
+  }
+  @include mQ(nth($breakPoints, 3)){
+    font-size: 95%;
+  }
+  @include mQ(nth($breakPoints, 4)){
+    font-size: 100%;
+  }
+}

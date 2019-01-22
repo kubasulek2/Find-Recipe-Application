@@ -8,7 +8,7 @@ $(() => {
   };
   const createRequest = () => {
 
-    request.restriction = $('.restriction').text() === 'No restriction' ? undefined : $('.restriction').text();
+    request.restriction = $('.restriction').text() === 'No Filter' ? undefined : $('.restriction').text();
     request.filter = $('.filter').text() === 'No filter' ? undefined : $('.filter').text();
     request.ingredient1 = $('#ingredient-1').val() === ''? undefined : $('#ingredient-1').val();
     request.ingredient2 = $('#ingredient-2').val() === ''? undefined : $('#ingredient-2').val();
@@ -23,7 +23,7 @@ $(() => {
     Object.keys(request).forEach((key)=> request[key] = undefined);
     $('.fridge').find('.dropdown-menu .show').removeClass('show');
     $('.fridge').find('input').val('');
-    $('.restriction').text('No restriction');
+    $('.restriction').text('No filter');
     $('.filter').text('No filter')
   };
 
