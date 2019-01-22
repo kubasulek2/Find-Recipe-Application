@@ -141,8 +141,7 @@ $(() => {
     let recipeNumber = index + 1;
 
     image.src = recipe.image;
-    image.onload = $('.image')
-      .append(`<img src='${image.src}' class="card-img-top mx-auto" alt="recipe image">`);
+    image.onload = $('.card-image').css('background-image', `url(${image.src})`);
 
     $('.card-title').text(recipe.label);
     $('.group-info .info-1').text(`Servings: ${recipe.yield}`);
@@ -180,7 +179,7 @@ $(() => {
   };
   const clearRecipeData = ()=>{
     $('ul.ingredients').empty();
-    $('.image').empty();
+    //$('.image').empty();
   };
 
   handleSelection();

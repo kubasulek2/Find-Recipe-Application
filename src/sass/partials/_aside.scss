@@ -1,5 +1,5 @@
 .card{
-
+  height: 100%;
   background: lighten($fridge, 20%);
   text-align: center;
   .card-header {
@@ -8,15 +8,30 @@
     font-size: 1.5rem;
     text-transform: uppercase;
   }
+  .image {
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  .card-img-top{
-    display: inline-block;
-    width: 50%;
 
+    .card-image {
+      display: block;
+      width: 50%;
+      height: 95%;
+      background-color: lighten($fridge, 20%);
+      background-position:  center;
+      background-size: cover;
+
+    }
   }
   .card-body {
-    padding: 1rem 0;
+    padding-top: 1rem;
     font-family: 'handlee';
+    #scrollable{
+      max-height: 14rem;
+      overflow-y: auto;
+    }
     .card-title {
       background: $fridge;
       font-size: 1.5rem;
