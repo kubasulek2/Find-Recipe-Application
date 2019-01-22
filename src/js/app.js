@@ -112,30 +112,33 @@ $(() => {
   };
 
   const createRecipeCard = data => {
-    let length = data.hits.length > 4 ? 4 : data.hits.length;
-    let index = castRecipes(data.hits.length);
-    let maxIndex = index + length;
-    console.log(`length: ${length}, index: ${index}, maxIndex: ${maxIndex}`);
-    drawRecipeData(data, index, maxIndex);
+    let length = data.hits.length > 5 ? 5 : data.hits.length;
+    let index = 0;
+    let maxIndex = index + length - 1;
+    let recipeIndex = castRecipes(data.hits.length);
+    if (data.hits.length === 0){
+      alert("oops, coudnt find anything")
+    } else{
+      drawRecipeData(data, index, maxIndex,recipeIndex);
+    }
   };
 
-  const castRecipes = (index) => {
-    return index <= 5 ? 0 : Math.floor(Math.random()*(index - 4))
+  const castRecipes = (length) => {
+    return length <= 5 ? 0 : Math.floor(Math.random()*(length - 4))
   };
 
-  const changeRecipe = (data, index,maxIndex) => {
-    drawRecipeData(data, index,maxIndex);
+  const changeRecipe = (data, index, maxIndex, recipeIndex) => {
+    drawRecipeData(data, index, maxIndex, recipeIndex);
 
   };
 
-  const drawRecipeData = (data, index, maxIndex) => {
+  const drawRecipeData = (data, index, maxIndex, recipeIndex) => {
     clearRecipeData();
-    //console.log(data);
-    let recipe = data.hits[index].recipe;
+    console.log(`recipeIndex: ${recipeIndex}, index: ${index}, maxIndex: ${maxIndex}`);
+    let recipe = data.hits[recipeIndex + index].recipe;
     let image = new Image();
     let calories = Math.round(recipe.calories / recipe.yield);
-    let recipeNumber = maxIndex < 5 ? 1:-(maxIndex-(index+5));
-    console.log(`recipe Number: ${recipeNumber}`);
+    let recipeNumber = index + 1;
 
     image.src = recipe.image;
     image.onload = $('.image')
@@ -144,35 +147,36 @@ $(() => {
     $('.card-title').text(recipe.label);
     $('.group-info .info-1').text(`Servings: ${recipe.yield}`);
     $('.group-info .info-2').text(`Cal/Serving: ${calories}`);
-    $('.index').text(`${recipeNumber}/5`);
+    $('.index').text(`${recipeNumber}/${data.hits.length > 5 ? 5 :data.hits.length}`);
     $('a.btn').attr('href', recipe.url);
 
     for(let i = 0; i < recipe.ingredients.length ; i++){
       $('.card-body .ingredients')
         .append(`<li>- ${recipe.ingredients[i].text}</li>`)
     }
+    if(data.hits.length > 1) {
+      $('.btn-prev').one('click', () => {
 
-    $('.btn-prev').one('click', () => {
-
-      if (index > maxIndex - 4){
-        index--;
-        changeRecipe(data, index, maxIndex)
-      }else{
-        index = maxIndex;
-        changeRecipe(data, index, maxIndex)
-      }
-    });
-    $('.btn-next').one('click', () => {
-      if (index < maxIndex){
-        index++;
-        recipeNumber++;
-        changeRecipe(data, index,maxIndex)
-      }else{
-        recipeNumber = 1;
-        index = maxIndex - 4;
-        changeRecipe(data, index,maxIndex)
-      }
-    });
+        if (index > maxIndex - 4) {
+          index--;
+          changeRecipe(data, index, maxIndex,recipeIndex)
+        } else {
+          index = maxIndex;
+          changeRecipe(data, index, maxIndex,recipeIndex)
+        }
+      });
+      $('.btn-next').one('click', () => {
+        if (index < maxIndex) {
+          index++;
+          recipeNumber++;
+          changeRecipe(data, index, maxIndex,recipeIndex)
+        } else {
+          recipeNumber = 1;
+          index = maxIndex - 4;
+          changeRecipe(data, index, maxIndex,recipeIndex)
+        }
+      });
+    }
   };
   const clearRecipeData = ()=>{
     $('ul.ingredients').empty();
