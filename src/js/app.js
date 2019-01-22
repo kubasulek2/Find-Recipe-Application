@@ -8,12 +8,13 @@ $(() => {
   };
   const createRequest = () => {
 
-    request.restriction = $('.restriction').text() === 'No Filter' ? undefined : $('.restriction').text();
+    request.restriction = $('.restriction').text() === 'No filter' ? undefined : $('.restriction').text();
+
     request.filter = $('.filter').text() === 'No filter' ? undefined : $('.filter').text();
     request.ingredient1 = $('#ingredient-1').val() === ''? undefined : $('#ingredient-1').val();
     request.ingredient2 = $('#ingredient-2').val() === ''? undefined : $('#ingredient-2').val();
     request.ingredient3 = $('#ingredient-3').val() === ''? undefined : $('#ingredient-3').val();
-
+    console.log(request.restriction);
     requestFetch(request);
     openFridge();
   };
@@ -29,7 +30,6 @@ $(() => {
 
   const drawRequest = () => {
     openFridge();
-    resetRequest();
     let ingredients = ['potato', 'salad', 'steak', 'tuna', 'salmon', 'cod', 'shrimps', 'rocket', 'spinach', 'onion', 'mushroom', 'leek', 'pumpkin', 'peas', 'bean', 'beans', 'cucumber', 'zucchini', 'garlic', 'broccoli', 'cauliflower', 'capers', 'carrot', 'beetroot', 'cabbage', 'asparagus', 'avocado', 'eggplant', 'rice', 'oats', 'buckwheat', 'black beans', 'chickpeas', 'millet', 'lentil', 'chicken', 'beef', 'turkey', 'duck', 'breast', 'pork', 'ham', 'mutton', 'chops', 'milk', 'cream', 'cheddar', 'yogurt', 'cottage', 'butter', 'mango', 'strawberry', 'orange', 'lemon', 'lime', 'coconut', 'banana', 'peach', 'olive', 'almonds', 'sesame', 'walnuts'];
     let drawnIngredient = ingredients[Math.floor(Math.random() * ingredients.length)];
 
@@ -81,8 +81,10 @@ $(() => {
 
     let filter = request.filter === undefined ? '' : `&diet=${request.filter.toLowerCase()}`;
     let restriction = request.restriction === undefined ? '' : `&health=${request.restriction.toLowerCase()}`;
+    console.log(filter);
+    console.log(restriction);
     let url = `https://api.edamam.com/search?q=${query}&app_id=${appId}&app_key=${appKey}${filter}${restriction}&from=0&to=100`;
-
+    console.log(url);
     fetch(url,{
       cache: "no-store",
       mode: 'cors',
@@ -95,10 +97,8 @@ $(() => {
         console.log(data);
         createRecipeCard(data);
       })
-      .catch(err => console.log(err))
-
-
-  };
+      .catch(err => alert("You must wait up to minute before next search"))
+   };
 
   const createQuery = () => {
     let array = [];
@@ -175,7 +175,6 @@ $(() => {
     }
 
     if(data.hits.length > 1) {
-      console.log('aaa');
       $('.btn-prev').on('click', () => {
 
         if (index > maxIndex - 4) {
